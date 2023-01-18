@@ -1,4 +1,4 @@
-"use strict";
+"usescrict";
 
 // prettier-ignore
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -17,6 +17,17 @@ const getCurrentPositionCallbackSuccess = (position) => {
     const { longitude } = position.coords;
     const mapsTemplate = `https://www.google.com.br/maps/@${latitude},${longitude}`;
     console.log(mapsTemplate);
+
+    const coords = [latitude, longitude];
+    const map = L.map("map").setView(coords, 13);
+
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+
+    let marker = L.marker(coords).addTo(map);
 };
 
 const getCurrentPositionCallbackFailure = (position) => {
