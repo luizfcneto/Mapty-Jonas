@@ -13,6 +13,10 @@ const inputElevation = document.querySelector(".form__input--elevation");
 
 const getCurrentPositionCallbackSuccess = (position) => {
     console.log(position);
+    const { latitude } = position.coords;
+    const { longitude } = position.coords;
+    const mapsTemplate = `https://www.google.com.br/maps/@${latitude},${longitude}`;
+    console.log(mapsTemplate);
 };
 
 const getCurrentPositionCallbackFailure = (position) => {
