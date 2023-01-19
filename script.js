@@ -20,14 +20,29 @@ const getCurrentPositionCallbackSuccess = (position) => {
 
     const coords = [latitude, longitude];
     const map = L.map("map").setView(coords, 13);
-
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution:
             '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
 
-    let marker = L.marker(coords).addTo(map);
+    map.on("click", (event) => {
+        const { lat } = event.latlng;
+        const { lng } = event.latlng;
+        console.log(lat, lng);
+        let marker = L.marker([lat, lng])
+            .addTo(map)
+            .bindPopup(
+                L.popup({
+                    maxWidth: 100,
+                    minWidth: 50,
+                    autoClose: false,
+                    className: "running-popup",
+                })
+            )
+            .setPopupContent("<p> Opa World! </p>")
+            .openPopup();
+    });
 };
 
 const getCurrentPositionCallbackFailure = (position) => {
